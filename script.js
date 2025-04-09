@@ -33,7 +33,7 @@ async function convertCurrency() {
     }
   
     try {
-      const response = await fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, {
+      const response = await fetch(`https://currencyconversionapi.com/dashboard?to=${to}&from=${from}&amount=${amount}`, {
         method: 'GET',
         headers: {
           'apikey': 'a0b2dd92611d2908a5958ef5c8f9a0d1'
