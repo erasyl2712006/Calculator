@@ -2,62 +2,83 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Расширенный Калькулятор</title>
+  <title>Мощный Калькулятор</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>💡 Расширенный Калькулятор</h1>
+    <h1>🧮 Мощный Калькулятор</h1>
 
-    <section class="card">
-      <h2>➗ Арифметика</h2>
-      <div class="row">
-        <input type="number" id="num1" placeholder="Число 1">
-        <select id="operator">
-          <option value="+">+</option>
-          <option value="-">−</option>
-          <option value="*">×</option>
-          <option value="/">÷</option>
-          <option value="%">%</option>
-        </select>
-        <input type="number" id="num2" placeholder="Число 2">
-      </div>
-      <button onclick="calculate()">Посчитать</button>
-      <div class="result" id="result"></div>
-    </section>
+    <!-- Стандартный калькулятор -->
+    <div class="card">
+      <h2>Калькулятор</h2>
+      <div class="calculator">
+        <input type="text" id="calcDisplay" readonly>
+        <div class="buttons">
+          <button onclick="press('7')">7</button>
+          <button onclick="press('8')">8</button>
+          <button onclick="press('9')">9</button>
+          <button onclick="press('/')">÷</button>
 
-    <section class="card">
-      <h2>💱 Конвертация Валют</h2>
-      <div class="row">
-        <input type="number" id="amount" placeholder="Сумма">
-        <select id="fromCurrency">
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="RUB">RUB</option>
-        </select>
-        <span>→</span>
-        <select id="toCurrency">
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="RUB">RUB</option>
-        </select>
+          <button onclick="press('4')">4</button>
+          <button onclick="press('5')">5</button>
+          <button onclick="press('6')">6</button>
+          <button onclick="press('*')">×</button>
+
+          <button onclick="press('1')">1</button>
+          <button onclick="press('2')">2</button>
+          <button onclick="press('3')">3</button>
+          <button onclick="press('-')">−</button>
+
+          <button onclick="press('0')">0</button>
+          <button onclick="press('.')">.</button>
+          <button onclick="calculate()">=</button>
+          <button onclick="press('+')">+</button>
+
+          <button onclick="press('%')">%</button>
+          <button onclick="clearDisplay()">C</button>
+        </div>
       </div>
+    </div>
+
+    <!-- НДС -->
+    <div class="card">
+      <h2>💰 Калькулятор НДС</h2>
+      <input type="number" id="vatAmount" placeholder="Сумма">
+      <select id="vatRate">
+        <option value="12">10%</option>
+        <option value="20">20%</option>
+        <option value="0">0%</option>
+      </select>
+      <button onclick="calculateVAT()">Рассчитать НДС</button>
+      <div class="result" id="vatResult"></div>
+    </div>
+
+    <!-- Конвертация -->
+    <div class="card">
+      <h2>🌍 Конвертация Валют</h2>
+      <input type="number" id="currencyAmount" placeholder="Сумма">
+      <select id="fromCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="KZT">KZT</option>
+        <option value="GBP">GBP</option>
+        <option value="CNY">CNY</option>
+      </select>
+      →
+      <select id="toCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="KZT">KZT</option>
+        <option value="GBP">GBP</option>
+        <option value="CNY">CNY</option>
+      </select>
       <button onclick="convertCurrency()">Конвертировать</button>
-      <div class="result" id="conversionResult"></div>
-    </section>
-
-    <section class="card">
-      <h2>📅 Рабочие Дни</h2>
-      <div class="row">
-        <input type="date" id="startDate">
-        <span>→</span>
-        <input type="date" id="endDate">
-      </div>
-      <button onclick="calculateWorkdays()">Посчитать</button>
-      <div class="result" id="workdaysResult"></div>
-    </section>
+      <div class="result" id="currencyResult"></div>
+    </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
