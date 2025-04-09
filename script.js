@@ -49,7 +49,7 @@ async function convertCurrency() {
     }
   
     try {
-      const response = await fetch(`https://api.currencyconversionapi.com/v1/convert?q=${from}_${to}&compact=ultra&apiKey=your-api-key`, {
+      const response = await fetch(`https://api.currencyconversionapi.com/v1/convert?q=${from}_${to}&compact=ultra&apiKey=d74c1932ac1edd9fbf449f4459c944b0`, {
         method: 'GET',
       });
   
