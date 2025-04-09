@@ -1,75 +1,70 @@
-// Арифметика
+// Полноценный калькулятор
+let currentInput = "";
+
+function press(value) {
+  currentInput += value;
+  document.getElementById('calcDisplay').value = currentInput;
+}
+
+function clearDisplay() {
+  currentInput = "";
+  document.getElementById('calcDisplay').value = "";
+}
+
 function calculate() {
-    const num1 = parseFloat(document.getElementById('num1').value);
-    const num2 = parseFloat(document.getElementById('num2').value);
-    const operator = document.getElementById('operator').value;
-    let result;
-  
-    if (isNaN(num1) || isNaN(num2)) {
-      result = "Введите оба числа!";
-    } else {
-      switch (operator) {
-        case '+': result = num1 + num2; break;
-        case '-': result = num1 - num2; break;
-        case '*': result = num1 * num2; break;
-        case '/': result = num2 !== 0 ? (num1 / num2) : "Ошибка: деление на ноль"; break;
-        case '%': result = (num1 * num2) / 100; break;
-        default: result = "Неверный оператор";
-      }
-    }
-  
-    document.getElementById('result').textContent = "Результат: " + result;
+  try {
+    const result = eval(currentInput);
+    document.getElementById('calcDisplay').value = result;
+    currentInput = result;
+  } catch {
+    document.getElementById('calcDisplay').value = "Ошибка";
   }
-  
- // Конвертация валют с использованием твоего API-ключа
+}
+
+// НДС
+function calculateVAT() {
+  const amount = parseFloat(document.getElementById('vatAmount').value);
+  const rate = parseFloat(document.getElementById('vatRate').value);
+
+  if (isNaN(amount)) {
+    document.getElementById('vatResult').textContent = "Введите сумму";
+    return;
+  }
+
+  const vat = (amount * rate) / 100;
+  const total = amount + vat;
+
+  document.getElementById('vatResult').textContent = `НДС: ${vat.toFixed(2)}, Итого с НДС: ${total.toFixed(2)}`;
+}
+
+// Конвертация валют
 async function convertCurrency() {
-    const amount = parseFloat(document.getElementById('amount').value);
+    const amount = parseFloat(document.getElementById('currencyAmount').value);
     const from = document.getElementById('fromCurrency').value;
     const to = document.getElementById('toCurrency').value;
   
     if (isNaN(amount)) {
-      document.getElementById('conversionResult').textContent = "Введите сумму!";
+      document.getElementById('currencyResult').textContent = "Введите сумму!";
       return;
     }
   
     try {
-      const response = await fetch(`https://currencyconversionapi.com/dashboard?to=${to}&from=${from}&amount=${amount}`, {
+      const response = await fetch(`https://api.currencyconversionapi.com/v1/convert?q=${from}_${to}&compact=ultra&apiKey=your-api-key`, {
         method: 'GET',
-        headers: {
-          'apikey': 'a0b2dd92611d2908a5958ef5c8f9a0d1'
-        }
       });
   
       const data = await response.json();
-  
-      if (data.result) {
-        document.getElementById('conversionResult').textContent = `Результат: ${data.result.toFixed(2)} ${to}`;
+      
+      if (data[`${from}_${to}`]) {
+        const rate = data[`${from}_${to}`];
+        const result = rate * amount;
+        document.getElementById('currencyResult').textContent = `Результат: ${result.toFixed(2)} ${to}`;
       } else {
-        document.getElementById('conversionResult').textContent = "Ошибка при получении данных.";
+        document.getElementById('currencyResult').textContent = "Ошибка при получении данных.";
       }
   
     } catch (error) {
-      document.getElementById('conversionResult').textContent = "Ошибка запроса к API.";
+      document.getElementById('currencyResult').textContent = "Ошибка запроса к API.";
     }
-  }
-  
-  
-  // Рабочие дни
-  function calculateWorkdays() {
-    const start = new Date(document.getElementById('startDate').value);
-    const end = new Date(document.getElementById('endDate').value);
-    let count = 0;
-  
-    if (isNaN(start.getTime()) || isNaN(end.getTime()) || start > end) {
-      document.getElementById('workdaysResult').textContent = "Введите корректные даты!";
-      return;
-    }
-  
-    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-      const day = d.getDay();
-      if (day !== 0 && day !== 6) count++;
-    }
-  
-    document.getElementById('workdaysResult').textContent = `Рабочих дней: ${count}`;
   }
   
