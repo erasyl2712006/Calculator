@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Расширенный Калькулятор</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💡 Расширенный Калькулятор</h1>
+
+    <section class="card">
+      <h2>➗ Арифметика</h2>
+      <div class="row">
+        <input type="number" id="num1" placeholder="Число 1">
+        <select id="operator">
+          <option value="+">+</option>
+          <option value="-">−</option>
+          <option value="*">×</option>
+          <option value="/">÷</option>
+          <option value="%">%</option>
+        </select>
+        <input type="number" id="num2" placeholder="Число 2">
+      </div>
+      <button onclick="calculate()">Посчитать</button>
+      <div class="result" id="result"></div>
+    </section>
+
+    <section class="card">
+      <h2>💱 Конвертация Валют</h2>
+      <div class="row">
+        <input type="number" id="amount" placeholder="Сумма">
+        <select id="fromCurrency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="RUB">RUB</option>
+        </select>
+        <span>→</span>
+        <select id="toCurrency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="RUB">RUB</option>
+        </select>
+      </div>
+      <button onclick="convertCurrency()">Конвертировать</button>
+      <div class="result" id="conversionResult"></div>
+    </section>
+
+    <section class="card">
+      <h2>📅 Рабочие Дни</h2>
+      <div class="row">
+        <input type="date" id="startDate">
+        <span>→</span>
+        <input type="date" id="endDate">
+      </div>
+      <button onclick="calculateWorkdays()">Посчитать</button>
+      <div class="result" id="workdaysResult"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
